@@ -11,7 +11,8 @@
 // La partita termina quando il giocatore inserisce
 // un numero “vietato” o raggiunge il numero massimo
 // possibile di numeri consentiti.
-// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
+// Al termine della partita il software deve comunicare il punteggio,
+// cioè il numero di volte che l’utente ha inserito un numero consentito.
 
 // BONUS: (da fare solo se funziona tutto il resto)
 // all’inizio il software richiede anche una difficoltà
@@ -29,6 +30,31 @@ var output = document.getElementById('output');
 
 var mines = [];
 var userNumbers = [];
+
+var top = 0;
+
+while (top === 0) {
+
+    var difficulty = parseInt(prompt("Scegli un livello di difficoltà da 0 a 2."));
+
+    if (!Number.isNaN(difficulty) && difficulty <= 2) {
+    
+        if (difficulty === 0) {
+
+            top = 100;
+
+        } else if (difficulty === 1) {
+
+            top = 80;
+
+        } else {
+
+            top = 50;
+
+        }
+
+    } 
+}
 
 // ora per riempire l'array mines creo una funzione che generi
 // dei numeri casuali e li pushi nell'array fintantochè
@@ -49,7 +75,7 @@ function generateRandomNumbers(min, max) {
     }
 }
 
-generateRandomNumbers(1, 100); //richiamo la funzione per verificare che tutto funzioni
+generateRandomNumbers(1, top); //richiamo la funzione per verificare che tutto funzioni
 
 console.log(mines); //log per verificare se l'array si è riempito correttamente
 
@@ -64,11 +90,11 @@ console.log(mines); //log per verificare se l'array si è riempito correttamente
 // dublicato, e un ulteriore nested if per verifcare che l'utente
 // non abbia colpito una mina. Else pusho.
 
-while (userNumbers.length < 84) {
+while (userNumbers.length < (top - 16)) {
     
-    var userNumber = parseInt(prompt("Inserisci un numero da 1 a 100."));
+    var userNumber = parseInt(prompt("Inserisci un numero da 1 a " + top));
 
-    if (!Number.isNaN(userNumber) && userNumber <= 100) {
+    if (!Number.isNaN(userNumber) && userNumber <= top) {
         
         if (!userNumbers.includes(userNumber)) {
 
@@ -92,19 +118,19 @@ console.log(userNumbers); //log per verificare se l'array si è riempito corrett
 
 // ora stampo il risultato
 
-if (userNumbers.length === 84) {
+if (userNumbers.length === (top - 16)) {
 
     output.innerHTML += "</br>HAI VINTO!! Hai raggiunto il punteggio massimo complimenti!";
 
-} else if (userNumbers.length > 50) {
+} else if (userNumbers.length > (top - Math.floor(0.7 * (top - 16)))) {
 
     output.innerHTML += "</br>Partita fantastica! Hai raggiunto l'ottimo punteggio di: " + userNumbers.length;
 
-} else if (userNumbers.length > 30) {
+} else if (userNumbers.length > (top - Math.floor(0.35 * (top - 16)))) {
 
     output.innerHTML += "</br>Partita discreta, ma devi impegnarti di più! Hai totalizzato " + userNumbers.length + " punti.";
 
-} else if (userNumbers.length <= 30) {
+} else if (userNumbers.length <= (top - Math.floor(0.35 * (top - 16)))) {
 
     output.innerHTML += "</br>Fai davvero pena! Hai raggiunto a malapena il pietoso punteggio di " + userNumbers.length;
 
