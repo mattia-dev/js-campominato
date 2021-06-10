@@ -64,7 +64,7 @@ console.log(mines); //log per verificare se l'array si è riempito correttamente
 // dublicato, e un ulteriore nested if per verifcare che l'utente
 // non abbia colpito una mina. Else pusho.
 
-while (userNumbers.length < 5) {
+while (userNumbers.length < 84) {
     
     var userNumber = parseInt(prompt("Inserisci un numero da 1 a 100."));
 
@@ -74,7 +74,7 @@ while (userNumbers.length < 5) {
 
             if (mines.includes(userNumber)) {
 
-                output.innerHTML = "Hai preso una mina! GAME OVER";
+                output.innerHTML += "Hai preso una mina! GAME OVER";
 
                 break;
 
@@ -88,3 +88,24 @@ while (userNumbers.length < 5) {
 }
 
 console.log(userNumbers); //log per verificare se l'array si è riempito correttamente
+
+
+// ora stampo il risultato
+
+if (userNumbers.length === 84) {
+
+    output.innerHTML += "</br>HAI VINTO!! Hai raggiunto il punteggio massimo complimenti!";
+
+} else if (userNumbers.length > 50) {
+
+    output.innerHTML += "</br>Partita fantastica! Hai raggiunto l'ottimo punteggio di: " + userNumbers.length;
+
+} else if (userNumbers.length > 30) {
+
+    output.innerHTML += "</br>Partita discreta, ma devi impegnarti di più! Hai totalizzato " + userNumbers.length + " punti.";
+
+} else if (userNumbers.length <= 30) {
+
+    output.innerHTML += "</br>Fai davvero pena! Hai raggiunto a malapena il pietoso punteggio di " + userNumbers.length;
+
+}
